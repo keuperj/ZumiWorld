@@ -29,6 +29,6 @@ Hacks, workarrounds and solutions beyond the official Zumi documentation
 
 ### Zumi boot scripts
 
-### Algorithms and Applications
+## Algorithms and Applications
 Here we list some of the (partial) solutions and algorithms tha run on our Zumis
 
