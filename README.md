@@ -16,10 +16,15 @@ Details on the server, remote access and camera infrastructure.
 Hacks, workarrounds and solutions beyond the official Zumi documentation
 
 ### Official Zumi Docs and API
-* API
-* Example Code
+**NOTE:** this is an unofficial collection of things that we found usefull, but could not find in the official docs. This is not intended to be a complete documentation! Please consult the official docs:
+* [Zumi API](https://www.piwheels.org/)
+* [Zumi Code Examples](https://github.com/RobolinkInc/Zumi_Content)
 
 ### Undocumented API
+We ran accross some funtions in the API which were not officially documented:
+```
+get_battery_percentage() - returns current battery status in percent
+```
 
 ### Camera hacks 
 
@@ -41,7 +46,7 @@ ssh pi@192.168.10.1
 ```
 default password is *pi*. The user *pi* has *sudo*-rights.
 
-#### WIIF power save mode
+#### WIFI power save mode
 by default, the Zumi runs both WIFI adapters in power save mode. This can cause frequent network interruptions, especially when working via SSH. To turn of the power save mode:
 ```
 sudo iwconfig wlan0 power off
