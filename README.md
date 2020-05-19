@@ -32,6 +32,56 @@ get_battery_percentage() - returns current battery status in percent
 ```
 
 ### Camera hacks 
+Unfortunately, the Zumi camera API only provides very low resolution images at low framerates from the camra. Howver, the build in *picam* does have a much higher resolution and the *Pi-Zero* hardware pipeline (build in image encoders) even allow high framerates. All we we have to do, ist to bypass the Zumi API and acess the camera directly, using the ``picamera`` lib.
+
+#### getting high resolution images
+
+capture to file:
+```
+with picamera.PiCamera() as camera:
+    camera.resolution = (1024, 768)   
+    camera.rotation = 180
+    camera.capture('out.jpg')
+```
+* (1024,768) is the max resolution, but you can also set it to (640,480) or (320,240)
+* Zumi's cam is mounted upside down ->  need rotation by 180 degree 
+
+or to an *Numpy* array:
+```
+with picamera.PiCamera() as camera:
+    camera.resolution = (1024, 768)
+    camera.rotation = 180
+    output = np.empty((1024,768,3),dtype=np.uint8)
+    camera.capture(output , 'rgb')
+
+output
+```
+
+#### getting 30fps at high resolution
+***NOTE:*** do NOT call te above cam code in a loop or short intervals (<= 1s) - it will cause the Zumi to stall. For image sequences at higher framerates, we need to use the hardware optimization (video port). Fortunately, [picamera](https://picamera.readthedocs.io/en/release-1.13/) provides all of this (and much more):
+```
+import time
+import picamera
+
+frames = 60
+
+with picamera.PiCamera() as camera:
+    camera.resolution = (1024, 768)
+    camera.framerate = 30
+    camera.start_preview()
+    # Give the camera some warm-up time
+    time.sleep(2)
+    start = time.time()
+    camera.capture_sequence([
+        'image%02d.jpg' % i
+        for i in range(frames)
+        ], use_video_port=True)
+    finish = time.time()
+print('Captured %d frames at %.2ffps' % (
+    frames,
+    frames / (finish - start)))
+
+```
 
 ### Network 
 By default, Zumi starts two wifi networks: 
