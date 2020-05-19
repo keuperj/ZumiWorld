@@ -14,6 +14,7 @@ Details on the server, remote access and camera infrastructure.
 Since the compute capacity of Zumi's *Rasberry Pi-Zero* is quite limited, it can be very usefull to only use the *Pi* as slave for sensors and actors and remote control the Zumi. This allows to run compute intesive algorithmens, like deep learning, on external compute ressources. See our [***Zumi-RPC***](https://github.com/keuperj/Zumi-rpc) sub-project.  
 
 ### Zumi Dashboard
+In another sub-project, we are working on a custom web [DashBoard](https://github.com/keuperj/Zumi-rpc), wich allows interactive control and live sensor reads of the Zumis.
 
 ## Zumi Hacks
 Hacks, workarrounds and solutions beyond the official Zumi documentation
