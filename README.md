@@ -154,9 +154,11 @@ apt-get install XXX
 ```
 pip3 install XXXX
 ```
+### get console (terminal) access
+Use SSH or open a terminal (NEW button in top right corner) in Jupyter.
 
 ### Monitor Zumi CPU and memory usage
-SSh on Zumi and type``top``
+In the terminal (via SSH or Jupyter) type``top``
 
 ### Clone SD Card
 Make full backups of your Zum system or clone Zumis:
