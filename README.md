@@ -39,16 +39,29 @@ Connect to the Zumi WIFI and
 ```
 ssh pi@192.168.10.1
 ```
-default password is *pi*
+default password is *pi*. The user *pi* has *sudo*-rights.
 
-#### WFIF power save mode
+#### WIIF power save mode
 by default, the Zumi runs both WIFI adapters in power save mode. This can cause frequent network interruptions, especially when working via SSH. To turn of the power save mode:
 ```
 sudo iwconfig wlan0 power off
 sudo iwconfig AP0 power off
 ```
+#### WIFI config
+The wifi configuration can be found in
+```
+/etc/wpa_supplicant/wpa_supplicant.conf
+```
 
 ### Zumi boot scripts
+The the auto-start script is loacated in 
+```
+/etc/rc.local
+```
+By default, this calls the official Zumi DashBoard at boot time (locates in ``/home/pi/Dashboard/dashboard.py``). You can add your start-scripts her - make sure that ``rc.local`` will return ...
+
+
+### Installing packages 
 
 ## Algorithms and Applications
 Here we list some of the (partial) solutions and algorithms tha run on our Zumis
