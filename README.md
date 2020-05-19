@@ -9,12 +9,13 @@ Code and Howto's around our lab setup for Zumi Robots. **This project is under a
 Details on the server, remote access and camera infrastructure.
 
 ### Web-Proxy for remote Zumi access to *Jupyter*
+In the default setting, users have to connect to Zumi's Wifi and the connect via browser in order to run code on the Zumi. In our lab setting, we wanted to centralize the access to multiple Zumis via a single web-interface runnig on a lab server. This setting even allows remote live access to all of our Zumis from anywhere via browser - a feature we use for remote teaching in the lab during *Corona*... [***Details here***]()
 
 ### Remote Procedure Calls
 Since the compute capacity of Zumi's *Rasberry Pi-Zero* is quite limited, it can be very usefull to only use the *Pi* as slave for sensors and actors and remote control the Zumi. This allows to run compute intesive algorithmens, like deep learning, on external compute ressources. See our [***Zumi-RPC***](https://github.com/keuperj/Zumi-rpc) sub-project.  
 
 ### Zumi Dashboard
-In another sub-project, we are working on a custom web [DashBoard](https://github.com/keuperj/Zumi-rpc), wich allows interactive control and live sensor reads of the Zumis.
+In another sub-project, we are working on a custom web [***DashBoard***](https://github.com/keuperj/Zumi-rpc), wich allows interactive control and live sensor reads of the Zumis.
 
 ## Zumi Hacks
 Hacks, workarrounds and solutions beyond the official Zumi documentation
