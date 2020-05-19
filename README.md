@@ -23,9 +23,30 @@ Hacks, workarrounds and solutions beyond the official Zumi documentation
 
 ### Camera hacks 
 
-### Network and Wifi Problems
+### Network 
+By default, Zumi starts two wifi networks: 
+* It's own network ``AP0`` with the defualt IP ``192.168.10.1`` with ISSD ``zumiXXXX``
+* `ẁlan0``, which connects to the internet via some host WIFI, using DHPC. 
 
-### SSH Access 
+**NOTE:** both WIFIs are depending on each other: 
+* if ``wlan0`` fails to connect to the internet, ``ÀP0`` often times stalls, e.g. e fwew seconds after boot
+* if you shut down ``AP0``, ``WLAN0``will fail
+
+***Tech details of these observation are missing here***
+
+#### SSH Access
+Connect to the Zumi WIFI and
+```
+ssh pi@192.168.10.1
+```
+default password is *pi*
+
+#### WFIF power save mode
+by default, the Zumi runs both WIFI adapters in power save mode. This can cause frequent network interruptions, especially when working via SSH. To turn of the power save mode:
+```
+sudo iwconfig wlan0 power off
+sudo iwconfig AP0 power off
+```
 
 ### Zumi boot scripts
 
