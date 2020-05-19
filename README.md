@@ -62,6 +62,34 @@ By default, this calls the official Zumi DashBoard at boot time (locates in ``/h
 
 
 ### Installing packages 
+#### System packages  
+Zumi runs on a [Rasbian](https://www.raspberrypi.org/) - a *Debian* based Linux distribution. As in all Debian derivates, it uses the *apt* packages manager. Install packages via:
+```
+apt-get install XXX
+```
+
+#### Python packages
+*Rasbian* uses the [piwheels](https://www.piwheels.org/) repository with pre-build binaries of python packages. Install via:
+```
+pip3 install XXXX
+```
+ 
+
+### Clone SD Card
+Make full backups of your Zum system or clone Zumis:
+
+#### copy image
+```
+sudo dd if=/dev/mmcblk0p1 of=~/Vorlesung/SS_20/Projekt/ZumiLab/zumi_init_boot.img
+sudo dd if=/dev/mmcblk0p2 of=~/Vorlesung/SS_20/Projekt/ZumiLab/zumi_init_image.img
+```
+
+#### write image
+```
+sudo dd if=~/Vorlesung/SS_20/Projekt/ZumiLab/zumi_v1.8_ of=/dev/mmcblk0p1
+sudo dd if=~/Vorlesung/SS_20/Projekt/ZumiLab/zumi_v1.8_image.img of=/dev/mmcblk0p2
+```
+**Note:** SD devices might differ, just enter your SD and see where it is mouted (example here on Ubuntu)
 
 ## Algorithms and Applications
 Here we list some of the (partial) solutions and algorithms tha run on our Zumis
