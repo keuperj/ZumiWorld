@@ -31,6 +31,24 @@ We ran accross some funtions in the API which were not officially documented:
 get_battery_percentage() - returns current battery status in percent
 ```
 
+### Jupyter Notebooks
+
+#### start Jupyter
+To start Jupyter without the DashBoard, SSH on Zumi and
+```
+/usr/local/bin/jupyter notebook --config /home/pi/.jupyter/jupyter_notebook_config.py --no-browser --notebook-dir=/home/pi/Dashboard/user/USERNAME/ &
+```
+
+#### customize Jupyter
+SSH on Zumi and crate a local conig file:
+```
+jupyter notebook --generate-config
+```
+and edit it:
+```
+sudo vim /home/pi/.jupyter/jupyter_notebook_config.py
+```
+See [Jupyter Config Docs](https://jupyter-notebook.readthedocs.io/en/stable/config.html) for details.
 ### Camera hacks 
 Unfortunately, the Zumi camera API only provides very low resolution images at low framerates from the camra. Howver, the build in *picam* does have a much higher resolution and the *Pi-Zero* hardware pipeline (build in image encoders) even allow high framerates. All we we have to do, ist to bypass the Zumi API and acess the camera directly, using the ``picamera`` lib.
 
@@ -83,6 +101,9 @@ print('Captured %d frames at %.2ffps' % (
 
 ```
 
+#### Live camera stream
+We are currently workin on a live >10 fps stream from the Zumi...
+
 ### Network 
 By default, Zumi starts two wifi networks: 
 * It's own network ``AP0`` with the defualt IP ``192.168.10.1`` with ISSD ``zumiXXXX``
@@ -133,7 +154,9 @@ apt-get install XXX
 ```
 pip3 install XXXX
 ```
- 
+
+### Monitor Zumi CPU and memory usage
+SSh on Zumi and type``top``
 
 ### Clone SD Card
 Make full backups of your Zum system or clone Zumis:
