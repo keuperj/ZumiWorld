@@ -1,6 +1,6 @@
 # Zumi Remote Access accross the internet
 ### Setting
-Zumi is usually accesed via it's own Wifi network. Here, we show how to open it for remote access from anywhere in the internet...
+Zumi is usually accessed via it's own Wifi network. Here, we show how to open it for remote access from anywhere in the internet...
 
 ### What you need
 * your Zumi should be setup and connected to the internet
@@ -13,7 +13,7 @@ In our example: ``https://myserver.com/zumi01``
 We use a combination of a reverse web-proxy (*Traefik*) on the server and SSH port-forwarding to get this done... 
 
 ### On the Zumi
-Use ssh to get on the zumi console.
+Use ssh to get on the Zumi console.
 
 #### install screen
 ```
@@ -27,9 +27,9 @@ ssh-copy-id -i .ssh/zumi01_id_rsa.pub zumicam@myserver.com
 ```
 **NOTE:** the user *zumi01* must exist on your server -> see On the Server
 
-**NOTE2:** rename the zumi if you have more than one
+**NOTE2:** rename the Zumi if you have more than one
 
-#### generate a *Jupyter* conig:
+#### generate a *Jupyter* config:
 ```
 jupyter notebook --generate-config
 ```
