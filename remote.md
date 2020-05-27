@@ -61,4 +61,17 @@ NOTE: change zumi name and port according to your settings in the *Jupyter* conf
 
 ### On your Server
 
+#### add user
+```
+sudo useradd zumi01
+```
+
+#### Install Traefik Proxxy
+
+#### Traefik config
+
+#### Start Traefik 
+
+
+
 ## SSH Port forwarding 
