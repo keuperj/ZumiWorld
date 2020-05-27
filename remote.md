@@ -17,6 +17,14 @@ Use ssh to get on the zumi console.
 ```
 sudo apt-get install screen
 ```
+#### generate SSH keys
+```
+ssh-keygen -b 4096
+mv .ssh/key_rsa.pub .ssh/zumi01_cam_key_rsa.pub
+ssh-copy-id -i .ssh/zumi01_id_rsa.pub zumicam@myserver.com
+```
+NOTE: the user *zumi01* must exist on your server -> see On the Server
+NOTE2: rename the zumi if you have more than one
 
 #### generate a *Jupyter* conig:
 ```
