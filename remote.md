@@ -10,6 +10,8 @@ Zumi is usually accesed via it's own Wifi network. Here, we show how to open it 
 Scenario: allow access to the Jupyter Notebooks running on one ore more Zumis via a fixed URL. 
 In our example: ``https://myserver.com/zumi01``
 
+We use a combination of a reverse web-proxy (*Traefik*) on the server and SSH port-forwarding to get this done... 
+
 ### On the Zumi
 Use ssh to get on the zumi console.
 
@@ -54,8 +56,11 @@ vim /home/pi/startJupyter.sh
 ```
 and add:
 ```
+#disable wifi power save
 sudo iwconfig wlan0 power off
+#start jupyter
 sudo -u pi /usr/local/bin/jupyter notebook --config /home/pi/.jupyter/jupyter_notebook_config.py --no-browser --notebook-dir=/home/pi/ &
+#forward jupyter port to server
 screen -d -m sudo -u pi ssh -i /home/pi/.ssh/zumi01 -R 8888:localhost:8888 zumi01@myserver.com
 ```
 NOTE: change zumi name and port according to your settings in the *Jupyter* config.
@@ -73,7 +78,7 @@ from ssh or *Jupyter* Terminal. Add this line to ``/etc/rc.local`` to auto-start
 sudo useradd zumi01
 ```
 
-#### Install Traefik Proxxy
+#### Install Traefik Proxy
 **Note:** we use  the slighte out dated [*Traefik*](https://docs.traefik.io/) Version 1.7 -> config files need to be different for later versions
 
 Get the *Traefik* binary release: 
@@ -138,4 +143,33 @@ This config will proxy a request to ```http://myserver.com/zumi01`` to the *Jupy
 For permanent proxy installtions, we use a *systemcttl* deamon for *traefik*
 
 
-## SSH Port forwarding 
+## SSH Port-forwarding 
+We use SSH to forward the *Jupyter* ports to the server, which then connects the proxy to these local ports
+```
+ssh -i /home/pi/.ssh/zumi01 -R 8888:localhost:8888 zumi01@myserver.com
+```
+### RPC
+We can do the same for the **RPC** port:
+```
+ssh -i /home/pi/.ssh/zumi01 -R RPC_PORT:localhost:RPC_PORT zumi01@myserver.com
+```
+However, in this case the proxy will not work (*traefic* is only a web-proxy). But we can use firewall and SSHD config to allow direct access to the server port.
+
+*NOTE*: security now relies on the RPC encription and auth directly on the Zumi.
+
+#### Firewall 
+We use the [*ufw* firewall](https://www.cyberciti.biz/faq/how-to-setup-a-ufw-firewall-on-ubuntu-18-04-lts-server/)
+```
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow http/tcp
+ufw allow https/tcp
+ufw allow ssh
+ufw allow 9001/tcp comment 'zumi1 rpc'
+```
+
+#### SSHD config
+edit ``/etc/ssh/sshd_config `` and set
+```
+GatewayPorts yes
+```
