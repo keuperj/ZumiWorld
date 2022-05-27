@@ -22,7 +22,7 @@ RESULT=$(find . -maxdepth 1 -type f \( -iname "*.img" ! -iname "boot.img" \) -pr
 readarray -t local<<<"$RESULT"
 if [[ ! " ${local[*]} " =~ " ${2} " ]]; then
     #The file is not already in the cwd, will try to check in repo
-    wget -q --no-check-certificate 'https://docs.google.com/uc?export=download&id=1U3F7inaFRhLg3T51Jst-_G3ucuFwM9sE' -O ids.txt
+    wget -q --no-check-certificate 'https://docs.google.com/uc?export=download&id=1U3F7inaFRhLg3T51Jst-_G3ucuFwM9sE' -O ids.txt 2>&1 >/dev/null
     if [ $? -ne 0 ]; then
         echo "image not found locally and online repo access not successful."
         exit 1
@@ -36,7 +36,7 @@ if [[ ! " ${local[*]} " =~ " ${2} " ]]; then
         read -ra pair <<< $image
         links[${pair[0]}]=${pair[1]}
     done
-    if [[ ! " ${!links[*]} " =~ "${2}" ]]; then
+    if [[ ! " ${!links[*]} " =~ " ${2} " ]]; then
         echo "image not in cwd or online repo, available images:"
         echo "local : ${local[@]}"
         echo "online: ${!links[@]}"
@@ -53,7 +53,7 @@ if [[ ! " ${local[*]} " =~ " ${2} " ]]; then
     gunzip "${2}.gz"
 fi
 dd if=boot.img of=/dev/${1}p1 status=progress
-dd if=${2}.img of=/dev/${1}p2 status=progress
+dd if=${2} of=/dev/${1}p2 status=progress
 echo $3 > /mnt/rootfs/etc/hostname
 sed -i "9s/.*/127.0.1.1           $3" /mnt/rootfs/etc/hosts
 sed -i "/ssid=/c\ssid=$3" /mnt/rootfs/etc/hostapd/hostapd.conf
