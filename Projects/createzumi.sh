@@ -52,11 +52,11 @@ if [[ ! " ${local[*]} " =~ " ${2} " ]]; then
     echo "unzipping, this can take a few minutes..."
     gunzip "${2}.gz"
 fi
-dd if=boot.img of=/dev/${1}p1 status=progress
-dd if=${2} of=/dev/${1}p2 status=progress
-echo $3 > /mnt/rootfs/etc/hostname
-sed -i "9s/.*/127.0.1.1           $3" /mnt/rootfs/etc/hosts
-sed -i "/ssid=/c\ssid=$3" /mnt/rootfs/etc/hostapd/hostapd.conf
-sed -i "/wpa_passphrase=/c\wpa_passphrase=$3" /mnt/rootfs/etc/hostapd/hostapd.conf
-echo "successfully created new zumi with name $3"
+#dd if=boot.img of=/dev/${1}p1 status=progress
+#dd if=${2} of=/dev/${1}p2 status=progress
+SDPATH=$(findmnt -nr -o target -S /dev/mmcblk0p2)
+echo $3 > ${SDPATH}/etc/hostname
+sed -i "9s/.*/127.0.1.1           $3/" ${SDPATH}/etc/hosts
+sed -i "/ssid=/c\ssid=$3" ${SDPATH}/etc/hostapd/hostapd.conf
+sed -i "/wpa_passphrase=/c\wpa_passphrase=$3" ${SDPATH}/etc/hostapd/hostapd.conf
 exit 0
